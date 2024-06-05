@@ -20,3 +20,7 @@ def load_json(file_path):
     except json.JSONDecodeError:
         print("Invalid JSON format")
         sys.exit(1)
+        
+def save_json(data, file_path):
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
