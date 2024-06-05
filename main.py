@@ -24,3 +24,14 @@ def load_json(file_path):
 def save_json(data, file_path):
     with open(file_path, 'w') as file:
         json.dump(data, file, indent=4)
+
+import yaml
+
+def load_yaml(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            data = yaml.safe_load(file)
+        return data
+    except yaml.YAMLError:
+        print("Invalid YAML format")
+        sys.exit(1)
