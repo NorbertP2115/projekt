@@ -39,3 +39,14 @@ def load_yaml(file_path):
 def save_yaml(data, file_path):
     with open(file_path, 'w') as file:
         yaml.dump(data, file)
+
+import xmltodict
+
+def load_xml(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            data = xmltodict.parse(file.read())
+        return data
+    except Exception as e:
+        print(f"Invalid XML format: {e}")
+        sys.exit(1)
