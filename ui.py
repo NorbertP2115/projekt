@@ -1,3 +1,5 @@
+import threading
+
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QFileDialog
 
 class ConverterUI(QWidget):
@@ -21,16 +23,36 @@ class ConverterUI(QWidget):
         self.setWindowTitle("Data Converter")
 
     def open_file(self):
-        options = QFileDialog.Options()
-        file_path, _ = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*);;JSON Files (*.json);;YAML Files (*.yaml);;XML Files (*.xml)", options=options)
-        if file_path:
-            print(f"Selected file: {file_path}")
+    options = QFileDialog.Options()
+    file_path, _ = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*);;JSON Files (*.json);;YAML Files (*.yaml);;XML Files (*.xml)", options=options)
+    if file_path:
+        def task():
+            data = load_file(file_path)
+            print(f"Loaded data: {data}")
+            callback()
 
-    def save_file(self):
-        options = QFileDialog.Options()
-        file_path, _ = QFileDialog.getSaveFileName(self, "Save File", "", "All Files (*);;JSON Files (*.json);;YAML Files (*.yaml);;XML Files (*.xml)", options=options)
-        if file_path:
-            print(f"File to save: {file_path}")
+        thread = threading.Thread(target=task)
+        thread.start()
+
+def save_file(self):
+    options = QFileDialog.Options()
+    file_path, _ = QFileDialog.getSaveFileName(self, "Save File", "", "All Files (*);;JSON Files (*.json);;YAML Files (*.yaml);;XML Files (*.xml)", options=options)
+    if file_path:
+        def task():
+            save_file(data, file_path)
+            callback()
+
+        thread = threading.Thread(target=task)
+        thread.start()
+
+def load_file(file_path):
+    # Implementacja funkcji wczytującej dane z pliku (JSON, YAML, XML)
+    pass
+
+def save_file(data, file_path):
+    # Implementacja funkcji zapisującej dane do pliku (JSON, YAML, XML)
+    pass
+
 
 if __name__ == "__main__":
     app = QApplication([])
